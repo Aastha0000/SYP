@@ -1,0 +1,91 @@
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+}
+
+.navbar--transparent {
+    background: transparent;
+    color: var(--white);
+}
+
+.navbar--solid {
+    background: var(--teal-dark);
+    color: var(--white);
+    position: relative;
+}
+
+.navbar__brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+}
+
+.navbar__links {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+}
+
+.navbar__links a {
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.navbar__links a:hover {
+    opacity: 1;
+}
+
+.navbar__user {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__icon {
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+
+.navbar__icon:hover {
+    opacity: 0.75;
+}
+
+.navbar__user-menu {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.navbar__username {
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.navbar__logout-btn {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar__logout-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

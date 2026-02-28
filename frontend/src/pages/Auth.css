@@ -1,0 +1,223 @@
+/* ── Auth Page Layout ─────────────────────────────────────────── */
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.auth-hero {
+    position: relative;
+    flex: 1;
+    min-height: 480px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Subtle dark overlay to improve contrast */
+.auth-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.30);
+}
+
+/* ── Auth Card ────────────────────────────────────────────────── */
+.auth-card {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 40px 44px;
+    width: 100%;
+    max-width: 420px;
+    margin: 20px 20px 20px;
+    box-shadow: var(--shadow);
+}
+
+.auth-card__title {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--teal-dark);
+    text-shadow: 0 1px 6px rgba(255, 255, 255, 0.6);
+    margin-bottom: 20px;
+}
+
+.auth-card__title--center {
+    text-align: center;
+}
+
+/* ── Role Toggle (Signup) ─────────────────────────────────────── */
+.auth-toggle {
+    display: flex;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 30px;
+    padding: 4px;
+    width: fit-content;
+    margin: 0 auto 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.auth-toggle__btn {
+    padding: 8px 28px;
+    border: none;
+    border-radius: 26px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+    background: transparent;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-toggle__btn--active {
+    background: var(--white);
+    color: var(--teal-dark);
+}
+
+/* ── Form ─────────────────────────────────────────────────────── */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid rgba(200, 200, 200, 0.6);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-input-wrap:focus-within {
+    border-color: var(--teal-mid);
+    box-shadow: 0 0 0 3px rgba(42, 90, 94, 0.18);
+}
+
+.auth-input-icon {
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.auth-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 13px 14px;
+    font-size: 0.93rem;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-input::placeholder {
+    color: rgba(100, 100, 100, 0.65);
+}
+
+.auth-eye-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ── Forgot Password ──────────────────────────────────────────── */
+.auth-forgot {
+    text-align: right;
+    margin-top: -4px;
+}
+
+.auth-forgot a {
+    font-size: 0.82rem;
+    color: var(--white);
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.auth-forgot a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* ── Submit Button ────────────────────────────────────────────── */
+.auth-btn {
+    margin-top: 4px;
+    padding: 14px;
+    background: var(--teal-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+}
+
+.auth-btn:hover:not(:disabled) {
+    background: var(--teal-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(26, 60, 64, 0.45);
+}
+
+.auth-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ── Switch Link ──────────────────────────────────────────────── */
+.auth-switch {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: var(--white);
+}
+
+.auth-switch__link {
+    color: var(--accent);
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.auth-switch__link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* ── Messages ─────────────────────────────────────────────────── */
+.auth-error {
+    background: rgba(209, 83, 74, 0.15);
+    border: 1px solid rgba(209, 83, 74, 0.5);
+    color: #c0392b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.87rem;
+    margin-bottom: 10px;
+}
+
+.auth-success {
+    background: rgba(39, 174, 96, 0.15);
+    border: 1px solid rgba(39, 174, 96, 0.5);
+    color: #1a7a3a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.87rem;
+    margin-bottom: 10px;
+}

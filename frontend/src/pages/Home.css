@@ -1,0 +1,193 @@
+/* ── Home Page ────────────────────────────────────────────────── */
+.home-page {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────── */
+.home-hero {
+    position: relative;
+    min-height: 60vh;
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.18) 0%,
+            rgba(0, 0, 0, 0.45) 100%);
+}
+
+.home-hero__content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 0 50px 60px;
+    flex: 1;
+}
+
+.home-hero__title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 28px;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.01em;
+}
+
+.home-hero__btn {
+    display: inline-block;
+    background: var(--teal-dark);
+    color: var(--white);
+    padding: 13px 36px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+    letter-spacing: 0.02em;
+}
+
+.home-hero__btn:hover {
+    background: var(--teal-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26, 60, 64, 0.5);
+}
+
+/* ── Popular Destinations ─────────────────────────────────────── */
+.home-destinations {
+    background: #f9f9f9;
+    padding: 52px 40px 60px;
+}
+
+.home-destinations__heading {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 28px;
+}
+
+.home-destinations__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 700px) {
+    .home-destinations__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Destination Card ─────────────────────────────────────────── */
+.dest-card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+}
+
+.dest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.dest-card__img-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+}
+
+.dest-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.dest-card:hover .dest-card__img {
+    transform: scale(1.06);
+}
+
+.dest-card__name {
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+    text-align: center;
+}
+
+/* ── Guide Promo Section ──────────────────────────────────────── */
+.home-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #516b6e;
+    min-height: 260px;
+}
+
+@media (max-width: 700px) {
+    .home-guide {
+        grid-template-columns: 1fr;
+    }
+}
+
+.home-guide__image-wrap {
+    overflow: hidden;
+}
+
+.home-guide__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s;
+}
+
+.home-guide__image-wrap:hover .home-guide__image {
+    transform: scale(1.04);
+}
+
+.home-guide__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 48px 40px;
+}
+
+.home-guide__title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 900;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.home-guide__btn {
+    display: inline-block;
+    background: var(--teal-dark);
+    color: var(--white);
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+}
+
+.home-guide__btn:hover {
+    background: var(--teal-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
