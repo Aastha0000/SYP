@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import dashboard from './pages/Dashboard';
 import './index.css';
 
 // ─── Helper: check if a valid token exists in localStorage ───────────────────

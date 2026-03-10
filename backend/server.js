@@ -1,28 +1,32 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
 
-const authRoutes = require('./routes/auth');
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// ─── MIDDLEWARE ───────────────────────────────────────────────────────────────
-app.use(cors({
+/* ───── Middleware ───── */
+app.use(
+  cors({
     origin: true,
-    credentials: true,
-}));
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
-// ─── ROUTES ───────────────────────────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
+/* ───── Routes ───── */
+app.use("/api/auth", authRoutes);
 
-// Root health check
-app.get('/', (req, res) => {
-    res.json({ message: 'ParyatanNepal API is running.' });
+/* ───── Health Check ───── */
+app.get("/", (req, res) => {
+  res.json({ message: "ParyatanNepal API is running." });
 });
 
-// ─── START SERVER ─────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
+/* ───── Start Server ───── */
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
