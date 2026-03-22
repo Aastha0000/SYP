@@ -1,103 +1,84 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import pool from "../db/db.js";
+import { createUser, findUserByEmail, findUserById } from "../models/userModel.js";
 
-dotenv.config();
+const generateToken = (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      role: user.role
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN || "7d"
+    }
+  );
+};
 
-/* ───── SIGNUP CONTROLLER ───── */
 export const signup = async (req, res) => {
-  const { username, email, password, role } = req.body;
-
-  if (!username || !email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Username, email and password are required." });
-  }
-
-  const allowedRoles = ["user", "guide"];
-  const userRole = allowedRoles.includes(role) ? role : "user";
-
   try {
-    // Check if user exists
-    const [existingUsers] = await pool.query(
-      "SELECT id FROM users WHERE email = ? OR username = ?",
-      [email, username]
-    );
+    const { username, email, password, role } = req.body;
 
-    if (existingUsers.length > 0) {
-      return res
-        .status(409)
-        .json({ message: "Email or username already in use." });
+    if (!username || !email || !password || !role) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    if (!["user", "guide", "admin"].includes(role)) {
+      return res.status(400).json({ message: "Invalid role" });
+    }
 
-    // Insert user
-    const [result] = await pool.query(
-      "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
-      [username, email, hashedPassword, userRole]
-    );
+    const existingUser = await findUserByEmail(email);
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
-    return res.status(201).json({
-      message: "Account created successfully.",
-      userId: result.insertId
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const result = await createUser(username, email, hashedPassword, role);
+
+    const user = {
+      id: result.insertId,
+      username,
+      email,
+      role
+    };
+
+    const token = generateToken(user);
+
+    res.status(201).json({
+      message: "Signup successful",
+      token,
+      user
     });
-
   } catch (error) {
-    console.error("Signup error:", error);
-    return res
-      .status(500)
-      .json({ message: "Server error during signup." });
+    res.status(500).json({ message: error.message });
   }
 };
 
-
-/* ───── LOGIN CONTROLLER ───── */
 export const login = async (req, res) => {
-  const { identifier, password } = req.body;
-
-  if (!identifier || !password) {
-    return res
-      .status(400)
-      .json({ message: "Identifier and password are required." });
-  }
-
   try {
-    // Find user
-    const [rows] = await pool.query(
-      "SELECT * FROM users WHERE email = ? OR username = ?",
-      [identifier, identifier]
-    );
+    const { email, password } = req.body;
 
-    if (rows.length === 0) {
-      return res.status(401).json({ message: "Invalid credentials." });
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
     }
 
-    const user = rows[0];
+    const user = await findUserByEmail(email);
 
-    // Compare password
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid credentials." });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Generate token
-    const token = jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-        role: user.role
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    return res.status(200).json({
-      message: "Login successful.",
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    const token = generateToken(user);
+
+    res.json({
+      message: "Login successful",
       token,
       user: {
         id: user.id,
@@ -106,11 +87,36 @@ export const login = async (req, res) => {
         role: user.role
       }
     });
-
   } catch (error) {
-    console.error("Login error:", error);
-    return res
-      .status(500)
-      .json({ message: "Server error during login." });
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await findUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await findUserById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
