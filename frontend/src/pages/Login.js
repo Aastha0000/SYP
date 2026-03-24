@@ -28,7 +28,14 @@ function Login() {
             const res = await loginUser({ identifier: form.identifier, password: form.password });
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
-            navigate('/');
+
+            if (res.data.user.role === 'guide') {
+                navigate('/guide-dashboard');
+            } else if (res.data.user.role === 'admin') {
+                navigate('/admin-dashboard');
+            } else {
+                navigate('/');
+            }
         } catch (err) {
             console.error("AXIOS ERROR:", err);
             setError(err.response?.data?.message || err.message || 'Login failed. Please try again.');

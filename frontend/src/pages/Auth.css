@@ -203,21 +203,140 @@
 
 /* ── Messages ─────────────────────────────────────────────────── */
 .auth-error {
-    background: rgba(209, 83, 74, 0.15);
-    border: 1px solid rgba(209, 83, 74, 0.5);
+    background: #fff1f0;
+    border: 2px solid #e53e3e;
     color: #c0392b;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.87rem;
-    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.93rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(229, 62, 62, 0.15);
 }
 
 .auth-success {
-    background: rgba(39, 174, 96, 0.15);
-    border: 1px solid rgba(39, 174, 96, 0.5);
-    color: #1a7a3a;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.87rem;
-    margin-bottom: 10px;
+    background: #f0fff4;
+    border: 2px solid #38a169;
+    color: #276749;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.93rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(56, 161, 105, 0.15);
+}
+/* Additional styles for new layout */
+
+.auth-card--large {
+    max-width: 800px;
+}
+
+.auth-header-fake {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    align-items: center;
+}
+
+.auth-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.auth-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.auth-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.form-row {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+}
+
+.auth-input-wrap.half {
+    flex: 1;
+}
+
+.auth-input-wrap.full {
+    width: 100%;
+}
+
+.guide-labels .half {
+    flex: 1;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.select-wrap {
+    background: #fff;
+}
+
+.auth-input-wrap.select-wrap select {
+    appearance: none;
+    width: 100%;
+    color: #666;
+}
+
+.uploads-section {
+    margin-top: 10px;
+}
+
+.uploads-section h4 {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.file-wrap {
+    background: #fff;
+    border-radius: 4px; /* Image has square inputs */
+    padding: 10px;
+}
+
+.file-wrap input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+    color: #666;
+}
+
+.auth-submit-btn {
+    align-self: center;
+    width: 300px;
+    background: #1a3c40;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+/* Override existing round inputs to match image slightly better */
+.auth-input-wrap {
+    border-radius: 4px;
+    background: #fff;
+}
+.auth-input {
+    color: #333;
 }
